@@ -5,7 +5,7 @@ export const MeetupContext = createContext();
 
 export const MeetupProvider = (props) => {
 
-
+    //Functionality for meetups
     const [meetups, setMeetup] = useState([
         {
             id: 1,
@@ -42,9 +42,37 @@ export const MeetupProvider = (props) => {
         setMeetup([...meetups, meetup_item]);
       }
 
+    
+    //Functionality for favorites meetup handling
+    const [userFavorites, setUserFavorites] = useState([]);
+    
+    function addFavoriteHandler(favoriteMeetup) {
+        setUserFavorites((prevUserFavorites) => {
+          return prevUserFavorites.concat(favoriteMeetup);
+        });
+      }
+    
+      function removeFavoriteHandler(meetupId) {
+        setUserFavorites(prevUserFavorites => {
+          return prevUserFavorites.filter(meetup => meetup.id !== meetupId);
+        });
+      }
+    
+      function itemIsFavoriteHandler(meetupId) {
+        return userFavorites.some(meetup => meetup.id === meetupId);
+      }
+
+
+    //All data context
     const context={
-        meetups: meetups,
+        all_meetups: meetups,
         addMeetup: addMeetup,
+
+        favorites: userFavorites,
+        totalFavorites: userFavorites.length,
+        addFavorite: addFavoriteHandler,
+        removeFavorite: removeFavoriteHandler,
+        itemIsFavorite: itemIsFavoriteHandler
     }
 
     return (

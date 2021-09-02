@@ -11,7 +11,7 @@ function AllMeetups() {
     return (
         <section>
             <h1>All Meetups</h1>
-            <MeetupList meetups={context_data.meetups} />
+            <MeetupList meetups={context_data.all_meetups} />
         </section>
     )
 }

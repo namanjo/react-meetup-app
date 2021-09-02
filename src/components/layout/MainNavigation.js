@@ -1,9 +1,14 @@
 import { Link } from "react-router-dom"
-
 import classes from './MainNavigation.module.css'
+
+import { useContext } from "react"
+import { MeetupContext } from "../../store/contextData"
 
 
 function MainNavigation() {
+
+    const context_data = useContext(MeetupContext);
+
     return (
         <header className={classes.header}>
             <div className={classes.logo}>React Meetups</div>
@@ -16,7 +21,12 @@ function MainNavigation() {
                         <Link to='/new-meetup'>Add New Meetup</Link>
                     </li>
                     <li>
-                        <Link to='/favorites'>Favorites</Link>
+                        <Link to='/favorites'>
+                            Favorites
+                            <span className={classes.badge}>
+                                {context_data.totalFavorites}
+                            </span>
+                        </Link>
                     </li>
                 </ul>
             </nav>
